@@ -1,0 +1,23 @@
+import telebot
+
+TOKEN="1520905530:AAGepIsACt2WE1SzNJgiWg-rIW9dMcbH9nQ"
+
+bot=telebot.TeleBot(TOKEN)
+keyboard1=telebot.types.ReplyKeyboardMarkup()
+keyboard1.row("מחפש טרמפ","מפרסם טרמפ")
+
+@bot.message_handler(commands=['start','help'])
+def send_message(message):
+    bot.reply_to(message,"Hi welcome to tremp bot",reply_markup=keyboard1)
+
+@bot.message_handler(content_types=["text"])
+def send_text(message):
+    if message.text.lower()=="מפרסם טרמפ":
+        bot.send_message(message.chat.id, 'מאיכן אתה יוצא')
+    if message.text.lower()=="מחפש טרמפ":
+        bot.send_message(message.chat.id, 'מאיפה'.format(user=message.from_user.username))
+
+
+
+
+bot.polling()
